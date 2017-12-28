@@ -81,10 +81,6 @@ int main(int argc, char **argv) {
 
 	if (rank == 0) {
         parallel_average_time += MPI_Wtime();
-        printf("%d\n", nBodies);
-        printf("%.5f\n", simulationTime);
-        printf("%.5f\n", dt);
-        //printf("one cicle time %.5f\n", parallel_average_time);
         for (size_t i = 0; i < nBodies; ++i){
         	printf("%.5f %.5f\n", bodies[i].x, bodies[i].y);
         	printf("%.5f %.5f\n", bodies[i].ax, bodies[i].ay);
