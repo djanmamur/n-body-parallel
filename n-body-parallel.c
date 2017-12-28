@@ -17,7 +17,7 @@ typedef struct _body {
 
 void integrate(body *body, float deltaTime);
 void calculateNewtonGravityAcceleration(body *a, body *b, float *ax, float *ay);
-void simulateWithBruteforce(int rank, int totalBodies, int nBodies, body *bodies, body *local_bodies, float dt);
+void bruteforce(int rank, int totalBodies, int nBodies, body *bodies, body *local_bodies, float dt);
 body  *initializeBodies (int nBodies);
 float randValue();
 
@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
         MPI_COMM_WORLD
     );
 
-	simulateWithBruteforce(rank, nBodies, items_per_process, bodies, local_bodies, dt);
+	bruteforce(rank, nBodies, items_per_process, bodies, local_bodies, dt);
 	body *gathered_bodies = NULL;
 	if (rank == 0) {
 		gathered_bodies =
@@ -124,7 +124,7 @@ void calculateNewtonGravityAcceleration(body *a, body *b, float *ax, float *ay) 
 	*ax = (distanceX * scale);
 	*ay = (distanceY * scale);
 }
-void simulateWithBruteforce(int rank, int totalBodies, int nBodies, body *bodies, body *local_bodies, float dt) {
+void bruteforce(int rank, int totalBodies, int nBodies, body *bodies, body *local_bodies, float dt) {
 	for(size_t i = 0; i < nBodies; i++) {
 		float total_ax = 0, total_ay = 0;
 		for (size_t j = 0; j < totalBodies; j++) {
